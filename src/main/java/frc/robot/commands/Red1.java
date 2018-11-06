@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-//Commit Comment
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
@@ -15,10 +14,10 @@ import frc.robot.subsystems.DriveTrain;
 /**
  * An example command. You can replace me with your own command.
  */
-public class Blue2 extends Command {
+public class Red1 extends Command {
   private DriveTrain dt = Robot.DT;
 
-  public Blue2() {
+  public Red1() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.DT);
   }
