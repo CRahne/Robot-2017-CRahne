@@ -15,6 +15,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 
+/** 
+   * Delete standard comments from the template unless actually useful
+   * @Nate
+   */
 /**
  * An example subsystem. You can replace me with your own Subsystem.
  */
@@ -38,24 +42,42 @@ public class DriveTrain extends Subsystem {
     // DT.driveCartesian(dasStick.getY(), dasStick.getX());
     DT.driveCartesian(dasStick.getY(), dasStick.getX(), dasStick.getZ());
   }
-
+  /*
+   * What is the difference between ^ and v ?
+   * @Nate
+   */
   public static void DriveForward(double ySpeed, double xSpeed, double zRotation) {
     DT.driveCartesian(ySpeed, xSpeed, zRotation);
 
   }
 
+  /** 
+   * Use comments
+   * @Nate
+   */
   public static void Right() {
     DT.driveCartesian(0, 0, -0.5); // Figure out what is Right
   }
-
+  /** 
+   * Use comments
+   * @Nate
+   */
   public static void Left() {
     DT.driveCartesian(0, 0, 0.5); // Figure out what is Left
   }
-
+  /** 
+   * Use comments
+   * @Nate
+   */
   public static void Stop() {
     DT.driveCartesian(0, 0, 0);
   }
 
+
+  /** 
+   * Use actual comments and descriptions
+   * @Nate
+   */
   /**
    * Go Complete Control
    * 
@@ -70,6 +92,10 @@ public class DriveTrain extends Subsystem {
     DriveTrain.Stop();
   }
 
+  /** 
+   * Use actual comments and descriptions
+   * @Nate
+   */
   /**
    * Go Diagonal
    * 
@@ -83,6 +109,11 @@ public class DriveTrain extends Subsystem {
     DriveTrain.Stop();
   }
 
+
+  /** 
+   * Use actual comments and descriptions
+   * @Nate
+   */
   /**
    * GoStraight
    * 
@@ -95,6 +126,10 @@ public class DriveTrain extends Subsystem {
     DriveTrain.Stop();
   }
 
+  /** 
+   * Use actual comments and descriptions
+   * @Nate
+   */
   /**
    * GoSide
    * 

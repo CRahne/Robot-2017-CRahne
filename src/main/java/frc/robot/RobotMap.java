@@ -34,6 +34,10 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
   public static Talon CLIMB_MOTOR;
   public static Talon CLIMB_ALT;
+  /** 
+   * Missing objects
+   * @Nate
+   */
   public static Talon DT_LEFTFRONT;
   public static Talon DT_LEFTREAR;
   public static Talon DT_RIGHTFRONT;

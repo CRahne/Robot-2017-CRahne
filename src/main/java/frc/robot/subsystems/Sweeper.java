@@ -8,6 +8,10 @@ import frc.robot.RobotMap;
  *
  */
 public class Sweeper extends Subsystem {
+  /** 
+   * Why do you use a final here and static in the DT
+   * @Nate
+   */
   public final Talon MOTOR = RobotMap.SWEEP_MOTOR;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -17,6 +21,10 @@ public class Sweeper extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
+  /** 
+   * Use comments
+   * @Nate
+   */
   public Talon getMotor() {
     return MOTOR;
   }
