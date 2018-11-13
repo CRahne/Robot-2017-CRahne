@@ -1,9 +1,11 @@
 package frc.robot.commands;
 
+//imports
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
+/** Tells the robot ot go to Red 2 */
 public class Red2 extends Command {
   private DriveTrain dt = Robot.DT;
 

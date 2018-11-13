@@ -9,6 +9,7 @@ import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Sweeper;
+import frc.robot.commands.OPDrive;
 
 /**
  * Robot Class is the class that tells the robot what to run and when
@@ -24,9 +25,10 @@ public class Robot extends TimedRobot {
 
   // AutoCommand
   public Command autonomousCommand;
+  public Command OPDrive;
 
   public void robotInit() {
-    // Put OPDrive when finished
+    OPDrive = new OPDrive();
   }
 
   public void robotPeriodic() {
@@ -56,6 +58,8 @@ public class Robot extends TimedRobot {
   }
 
   public void teleopInit() {
+    OPDrive.start();
+
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }

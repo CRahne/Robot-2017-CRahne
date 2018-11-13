@@ -1,9 +1,11 @@
 package frc.robot.commands;
 
+//imports
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
+/** The basic auto command. Will drive forward and then stop */
 public class BasicAuto extends Command {
   private DriveTrain dt = Robot.DT;
 
