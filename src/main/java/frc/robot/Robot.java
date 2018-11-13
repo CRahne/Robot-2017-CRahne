@@ -1,6 +1,3 @@
-/**
- * @author CRhane
- */
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -19,10 +16,8 @@ public class Robot extends TimedRobot {
   public static Shooter shoot = new Shooter();
   public static Climb climb = new Climb();
 
-  // Subs
-
   Command m_autonomousCommand;
-  public Command autonomousCommand;// The command we send to our robot to tell it where to go during Autonomous
+  public Command autonomousCommand;
 
   /**
    * This function is run when the robot is first started up and should be used
