@@ -13,8 +13,8 @@ public class Blue1 extends Command {
 
   protected void initialize() {
     requires(Robot.DT);
-    dt.Go(0, 0.75, 0, 1.2);
-    dt.Go(0.0, 0.8, 0.0, 0.3);
+    dt.driveComplex(0, 0.75, 0, 1.2);
+    dt.driveComplex(0.0, 0.8, 0.0, 0.3);
   }
 
   protected void execute() {
