@@ -3,6 +3,7 @@ package frc.robot;
 //imports
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,6 +21,10 @@ public class OI {
   public Joystick OpStick = new Joystick(0);// Main controller joystick
 
   // buttons
+  private JoystickButton ClimbUp;
+  private JoystickButton ClimbDown;
+  private JoystickButton SweeperForward;
+  private JoystickButton SweeperReverse;
 
   public SendableChooser<String> chooser = new SendableChooser<>();
   public String defaultAuto = "Default";

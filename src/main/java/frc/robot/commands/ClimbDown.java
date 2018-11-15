@@ -3,22 +3,21 @@ package frc.robot.commands;
 //imports
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Climb;
 
-/** Tells the robot to go to Blue 1 */
-public class Blue1 extends Command {
-  private DriveTrain dt = Robot.DT;
+/** Climb down? I think this is pretty self-explanatory */
+public class ClimbDown extends Command {
+  private Climb Climb = Robot.climb;
 
-  public Blue1() {
-    requires(Robot.DT);
+  public ClimbDown() {
+    requires(Climb);
   }
 
   protected void initialize() {
-    requires(Robot.DT);
-    dt.driveComplex(0, 0.75, 0, 1.2);
   }
 
   protected void execute() {
+    Climb.up();
   }
 
   protected boolean isFinished() {
@@ -26,10 +25,10 @@ public class Blue1 extends Command {
   }
 
   protected void end() {
-    dt.Stop();
+    Climb.stop();
   }
 
   protected void interrupted() {
-    dt.Stop();
+    Climb.stop();
   }
 }

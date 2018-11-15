@@ -24,6 +24,11 @@ public class Sweeper extends Subsystem {
     MOTOR.set(-0.5);
   }
 
+  /** Stops the motor */
+  public void kstop() {
+    MOTOR.set(0.0);
+  }
+
   /** Returns the Sweeper Motor */
   public Talon getMotor() {
     return MOTOR;

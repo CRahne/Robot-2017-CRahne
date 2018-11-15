@@ -2,23 +2,23 @@ package frc.robot.commands;
 
 //imports
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.Sweeper;
 import frc.robot.Robot;
-import frc.robot.subsystems.DriveTrain;
 
-/** Tells the robot to go to Blue 1 */
-public class Blue1 extends Command {
-  private DriveTrain dt = Robot.DT;
+/** Tells the sweeper to go in reverse */
+public class SweeperReverse extends Command {
+  private Sweeper Sweeper = Robot.sweep;
 
-  public Blue1() {
-    requires(Robot.DT);
+  public SweeperReverse() {
+    requires(Sweeper);
   }
 
   protected void initialize() {
-    requires(Robot.DT);
-    dt.driveComplex(0, 0.75, 0, 1.2);
+    Sweeper.kreverse();
   }
 
   protected void execute() {
+    Sweeper.kreverse();
   }
 
   protected boolean isFinished() {
@@ -26,10 +26,10 @@ public class Blue1 extends Command {
   }
 
   protected void end() {
-    dt.Stop();
+    Sweeper.kstop();
   }
 
   protected void interrupted() {
-    dt.Stop();
+    Sweeper.kstop();
   }
 }

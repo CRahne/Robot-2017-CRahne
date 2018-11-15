@@ -10,6 +10,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Sweeper;
 import frc.robot.commands.OPDrive;
+import frc.robot.RobotMap;
 
 /**
  * Robot Class is the class that tells the robot what to run and when
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 
   public void robotInit() {
     OPDrive = new OPDrive();
+    RobotMap.DT_GYRO.reset();
   }
 
   public void robotPeriodic() {

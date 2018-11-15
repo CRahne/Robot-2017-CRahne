@@ -1,5 +1,41 @@
 package frc.robot.subsystems;
 
+/**
+ * Drivetrain
+ * drive() {This method will bind the joystick to control the robot} 
+ * 
+ * ---> Simple Methods {Basic functions with no parameters}
+ *      -->driveSimple {The driveSimple method is the simplest autonomous driving method}
+ *      
+ *      -->rightShuffle {Will shuffle the robot to the right with a change in xSpeed}
+ *      -->leftShuffle {Shuffle left with the robot with a change in the xSpeed}
+ *      
+ *      -->Forward {Tells the robot to go forward with a change in the ySpeed}
+ *      -->Backward {Tells the robot to go backward with a change in the ySpeed}
+ *
+ *      -->turnRight {Tells the robot to turn 90 degrees to the right}
+ *      -->turnLeft {Tells robot to turn 90 degrees to the right}
+ * 
+ *      --> Stop {Tells the robot to stop moving. Call at the end of autos}
+ * 
+ * ---> Complex Methods
+ *      -->driveComplex {Gives the Programmer complete control, with TIMER.DELAY and DriveTrain.Stop}
+ *      
+ *      -->XYGo {Will alter the ySpeed and xSpeed of a robot with the Timer.Delay and DriveTrain.Stop}
+ *      -->GoStraight {This method will alter the ySpeed of going forward}
+ *      -->GoSide {Shuffles to the one side or the other}
+ * 
+ * ---> Return Methods
+ *      
+ *      -->getGyro {Returns the Drivetrain GYRO}
+ *      -->getDrive {Returns DriveTrain}
+ *      -->getLF {Returns the left front motor on the drivetrain}
+ *      -->getRF {Returns the right front motor on the drivetrain}
+ *      -->getLB {Returns the left back motor on the drivetrain}
+ *      -->getRB {Returns the right back motor on the drivetrain}
+ * 
+*/
+
 //imports
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
@@ -10,7 +46,6 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 
 /**
- * <p>
  * The drivetrain subsystem is the subsystem with all the methods related to
  * driving the frame
  * 
@@ -25,7 +60,15 @@ import frc.robot.RobotMap;
  * for Timer.delay
  * 
  * Return Methdos: Returns component needed after get___
- * </p>
+ * 
+ * 
+ * @param ySpeed    The robot's speed along the Y-Axis [-1.0, 1.0]. Right is
+ *                  positive
+ * @param xSpeed    The robot's speed along the X-Axis [-1.0, 1.0]. Forward is
+ *                  positive
+ * @param zRotation The robot's rotation rate around the Z axis. Clockwise is
+ *                  positive
+ * @param Time      How long the move will be ran for
  */
 public class DriveTrain extends Subsystem {
   // Components
@@ -42,6 +85,7 @@ public class DriveTrain extends Subsystem {
    * @param Joystick
    */
   public static void drive(Joystick dasStick) {
+    // This calls on driveCartesions and used the stick methods to control the
     DT.driveCartesian(dasStick.getY(), dasStick.getX(), dasStick.getZ());
   }
 
@@ -56,42 +100,59 @@ public class DriveTrain extends Subsystem {
    * @param zRotation (for rotating movements)
    */
   public static void driveSimple(double ySpeed, double xSpeed, double zRotation) {
+    // This will just take a simple inputs from the programmer in the parameters
     DT.driveCartesian(ySpeed, xSpeed, zRotation);
   }
 
-  /** Shuffle to the right with the robot. Needs testing */
+  /** Shuffle to the right with the robot */
   public static void rightShuffle() {
-    DT.driveCartesian(0, 0.5, 0);
+    DT.driveCartesian(0, 0.5, 0); // Sets xSpeed to 0.5 volts
   }
 
-  /** Shuffle to the left with the robot. Needs testing */
+  /** Shuffle to the left with the robot */
   public static void leftShuffle() {
-    DT.driveCartesian(0, -0.5, 0);
+    DT.driveCartesian(0, -0.5, 0);// Sets xSpeed to -0.5 volts
   }
 
   /** Drive forward */
   public static void Forward() {
-    DT.driveCartesian(0.5, 0, 0);
+    DT.driveCartesian(0.5, 0, 0);// Sets the ySpeed to 0.5 volts
   }
 
   /** Drive Backwards */
   public static void Backward() {
-    DT.driveCartesian(-0.5, 0, 0);
+    DT.driveCartesian(-0.5, 0, 0); // Sets the ySpeed to -0.5 volts
   }
 
-  /** Turn Right. Needs Testing */
+  /**
+   * Turns 90 degrees to the right. This method doesn't take the parameter of
+   * targetAngle
+   */
   public static void turnRight() {
-    DT.driveCartesian(0, 0, -0.5); // Figure out what is Right
+    double angle = GYRO.getAngle();
+    // Sets a while statement on the gyro
+    while (angle > 90) {
+      DT.driveCartesian(0, 0, 0.4);
+      angle = GYRO.getAngle();// This will rearead the the GYRO after each loop
+    }
   }
 
-  /** Turns left. Needs Testing */
+  /**
+   * Turns 90 degrees to the left. This method doesn't take the parameter of
+   * targetAngle
+   */
   public static void turnLeft() {
-    DT.driveCartesian(0, 0, 0.5); // Figure out what is Left
+    double angle = GYRO.getAngle();
+    // Sets a while statement on the gyro
+    while (angle > -90) {
+      DT.driveCartesian(0, 0, -0.4);
+      angle = GYRO.getAngle();// This will reread the GYRO after each loop
+    }
   }
 
-  /** Stops the Robot from moving */
+  /** Stops the Robot from moving. Call at the end of autos */
   public static void Stop() {
-    DT.driveCartesian(0, 0, 0);
+    DT.driveCartesian(0, 0, 0); // Sets all speeds down to zero
   }
   // /\
   // || Simple Methods
@@ -109,26 +170,29 @@ public class DriveTrain extends Subsystem {
    * @param Time      in seconds
    */
   public void driveComplex(double ySpeed, double xSpeed, double zRotation, double Time) {
-    DT.driveCartesian(ySpeed, xSpeed, zRotation);
-    Timer.delay(Time);
-    DriveTrain.Stop();
+    DT.driveCartesian(ySpeed, xSpeed, zRotation); // This allows complete control of all factors of the drive
+    Timer.delay(Time); // Sets a time delay because there are no encoders on this robot
+    DriveTrain.Stop(); // Tells the robot to stop
   }
 
   /**
-   * Complex Method for going diagonally
+   * Controls ySpeed and xSpeed on the driveCartesian. This will also have a
+   * Timer.Delay and a DriveTrain.Stop at the end of it. Doesn't have the the
+   * zRotation as a parameter
    * 
    * @param ySpeed
    * @param xSpeed
    * @param Time
    */
-  public void Go(double ySpeed, double xSpeed, double Time) {
-    DT.driveCartesian(ySpeed, xSpeed, 0);
-    Timer.delay(Time);
-    DriveTrain.Stop();
+  public void XYGo(double ySpeed, double xSpeed, double Time) {
+    DT.driveCartesian(ySpeed, xSpeed, 0); // There is no xRotation taken in
+    Timer.delay(Time); // Sets a timer delay
+    DriveTrain.Stop(); // Tells the robot to stop
   }
 
   /**
-   * Straight driving with time
+   * Straight driving with time. The ySpeed will be changed, so then the robot
+   * will only drive in a striaght line
    * 
    * @param ySpeed
    * @param Time
@@ -140,9 +204,10 @@ public class DriveTrain extends Subsystem {
   }
 
   /**
-   * Shuffles with time
+   * Will either go right [+ doubles] or left [- doubles] depending on the input
+   * for xSpeed. Time is the parameter for the Timer.Delay method
    * 
-   * @param ySpeed
+   * @param xSpeed
    * @param Time
    */
   public void GoSide(double xSpeed, double Time) {

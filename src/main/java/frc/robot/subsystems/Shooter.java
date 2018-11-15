@@ -22,40 +22,47 @@ public class Shooter extends Subsystem {
 
   /** Sets the gate talon going forward */
   public void gateForward() {
-    GATE.set(0.5);
+    GATE.set(Speed);
   }
 
   /** Sets the gate talon going backward */
   public void gateBackward() {
-    GATE.set(-0.5);
+    GATE.set(negSpeed);
   }
 
-  /**
-   * Sets the Shooter to go forward 0.5 volts
-   */
+  /** Tells the gate motor to stop */
+  public void gateStop() {
+    GATE.set(-0.0);
+  }
+
+  /** Sets the Shooter to go forward 0.5 volts */
   public void shootForward() {
     SHOOT.set(Speed);
   }
 
-  /**
-   * Sets the Shooter to go Reverse 0.5 volts
-   */
+  /** Sets the Shooter to go Reverse 0.5 volts */
   public void shootReverse() {
     SHOOT.set(negSpeed);
   }
 
-  /**
-   * Sets the Kicker to Forward 0.5 volts
-   */
+  /** Tells the shooter to stop */
+  public void shootStop() {
+    SHOOT.set(-0.0);
+  }
+
+  /** Sets the Kicker to Forward 0.5 volts */
   public void kickerForward() {
     KICKER.set(Speed);
   }
 
-  /**
-   * Sets the Kicker to Reverse 0.5 volts
-   */
+  /** Sets the Kicker to Reverse 0.5 volts */
   public void kickerReverse() {
     KICKER.set(negSpeed);
+  }
+
+  /** Tells the Kicker motor to stop */
+  public void kickerStop() {
+    KICKER.set(-0.0);
   }
 
   /** Returns Shoot Motor */
