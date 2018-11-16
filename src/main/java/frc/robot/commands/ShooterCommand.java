@@ -16,7 +16,7 @@ public class ShooterCommand extends Command {
   protected void initialize() {
     Shooter.kickerForward();
     Shooter.gateForward();
-    Shooter.kickerForward();
+    Shooter.shootForward();
   }
 
   protected void execute() {

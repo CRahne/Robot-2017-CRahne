@@ -11,6 +11,8 @@ import frc.robot.commands.BasicAuto;
 import frc.robot.commands.Blue1;
 import frc.robot.commands.Blue2;
 import frc.robot.commands.Blue3;
+import frc.robot.commands.ClimbDown;
+import frc.robot.commands.ClimbUp;
 import frc.robot.commands.Red1;
 import frc.robot.commands.Red2;
 import frc.robot.commands.Red3;
@@ -19,12 +21,13 @@ import frc.robot.commands.Red3;
 public class OI {
 
   public Joystick OpStick = new Joystick(0);// Main controller joystick
-  // comitt messagee
+
   // buttons
   private JoystickButton ClimbUp;
   private JoystickButton ClimbDown;
   private JoystickButton SweeperForward;
   private JoystickButton SweeperReverse;
+  private JoystickButton ShootGo;
 
   public SendableChooser<String> chooser = new SendableChooser<>();
   public String defaultAuto = "Default";
@@ -56,6 +59,22 @@ public class OI {
   }
 
   public Command getAutonomous(String autoChoice) {
+
+    ClimbUp = new JoystickButton(OpStick, 1);
+    ClimbUp.whileHeld(new ClimbUp());
+
+    ClimbDown = new JoystickButton(OpStick, 2);
+    ClimbDown.whileHeld(new ClimbDown());
+
+    SweeperForward = new JoystickButton(OpStick, 3);
+    SweeperForward.whileHeld(new ClimbUp());
+
+    SweeperReverse = new JoystickButton(OpStick, 4);
+    SweeperReverse.whileHeld(new ClimbDown());
+
+    ShootGo = new JoystickButton(OpStick, 5);
+    ShootGo.whileHeld(new ClimbDown());
+
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     SmartDashboard.putString("Game Data", gameData);
     SmartDashboard.putString("AutoSelect", autoChoice);

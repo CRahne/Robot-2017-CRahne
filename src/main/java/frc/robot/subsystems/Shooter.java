@@ -17,51 +17,51 @@ public class Shooter extends Subsystem {
   public static Talon KICKER = RobotMap.SHOOT_KICKER;
   public static Encoder Encoder1 = RobotMap.SHOOT_ENCODER;
   public static Talon GATE = RobotMap.GATE;
-  private double Speed = 0.5;
-  private double negSpeed = -0.5;
+  private static double Speed = 0.5;
+  private static double negSpeed = -0.5;
 
   /** Sets the gate talon going forward */
-  public void gateForward() {
+  public static void gateForward() {
     GATE.set(Speed);
   }
 
   /** Sets the gate talon going backward */
-  public void gateBackward() {
+  public static void gateBackward() {
     GATE.set(negSpeed);
   }
 
   /** Tells the gate motor to stop */
-  public void gateStop() {
+  public static void gateStop() {
     GATE.set(-0.0);
   }
 
   /** Sets the Shooter to go forward 0.5 volts */
-  public void shootForward() {
+  public static void shootForward() {
     SHOOT.set(Speed);
   }
 
   /** Sets the Shooter to go Reverse 0.5 volts */
-  public void shootReverse() {
+  public static void shootReverse() {
     SHOOT.set(negSpeed);
   }
 
   /** Tells the shooter to stop */
-  public void shootStop() {
+  public static void shootStop() {
     SHOOT.set(-0.0);
   }
 
   /** Sets the Kicker to Forward 0.5 volts */
-  public void kickerForward() {
+  public static void kickerForward() {
     KICKER.set(Speed);
   }
 
   /** Sets the Kicker to Reverse 0.5 volts */
-  public void kickerReverse() {
+  public static void kickerReverse() {
     KICKER.set(negSpeed);
   }
 
   /** Tells the Kicker motor to stop */
-  public void kickerStop() {
+  public static void kickerStop() {
     KICKER.set(-0.0);
   }
 
