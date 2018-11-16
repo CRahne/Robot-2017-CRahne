@@ -19,7 +19,7 @@ import frc.robot.commands.Red3;
 public class OI {
 
   public Joystick OpStick = new Joystick(0);// Main controller joystick
-
+  // comitt messagee
   // buttons
   private JoystickButton ClimbUp;
   private JoystickButton ClimbDown;
@@ -42,6 +42,7 @@ public class OI {
 
   /** Made only for autos */
   public OI() {
+
     chooser.addDefault("Default Auto", defaultAuto);
     chooser.addObject("1X", X1);
     chooser.addObject("1AB", AB1);
