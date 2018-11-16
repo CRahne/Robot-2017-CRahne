@@ -19,6 +19,10 @@ public class OPDrive extends Command {
     requires(drivetrain);
   }
 
+  /**
+   * He He, I Cole Rahne!!!!
+   */
+
   protected void initialize() {
     drivetrain.drive(OpStick);
   }
