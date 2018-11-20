@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 //imports
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -16,6 +17,12 @@ public class Blue1 extends Command {
   protected void initialize() {
     requires(Robot.DT);
     dt.driveComplex(0, 0.75, 0, 1.2);
+    dt.Stop();
+    dt.Forward();
+    Timer.delay(.3);
+    dt.Stop();
+    Timer.delay(0.9);
+
   }
 
   protected void execute() {
