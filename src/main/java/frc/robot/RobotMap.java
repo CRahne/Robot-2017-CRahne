@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The RobotMap class contains the virtual representations of the components so
@@ -46,28 +45,28 @@ public class RobotMap {
   public static void init() {
     // Climb motors inits
     CLIMB_MOTOR = new Talon(4);
-    LiveWindow.addActuator("Climb", "Motor 1", CLIMB_MOTOR);
+    //LiveWindow.addActuator("Climb", "Motor 1", CLIMB_MOTOR);
 
     CLIMB_ALT = new Talon(7);
-    LiveWindow.addActuator("Climb", "Motor 2", CLIMB_ALT);
+    //LiveWindow.addActuator("Climb", "Motor 2", CLIMB_ALT);
 
     // Drivetrain motors
     DT_LEFTFRONT = new Talon(2);
-    LiveWindow.addActuator("DriveTrain", "DT_LEFTFRONT", DT_LEFTFRONT);
+    // LiveWindow.addActuator("DriveTrain", "DT_LEFTFRONT", DT_LEFTFRONT);
 
     DT_RIGHTFRONT = new Talon(1);
-    LiveWindow.addActuator("DriveTrain", "DT_RIGHTFRONT", DT_RIGHTFRONT);
+    // LiveWindow.addActuator("DriveTrain", "DT_RIGHTFRONT", DT_RIGHTFRONT);
 
     DT_LEFTREAR = new Talon(0);
-    LiveWindow.addActuator("DriveTrain", "DT_LEFTREAR", DT_LEFTREAR);
+    // LiveWindow.addActuator("DriveTrain", "DT_LEFTREAR", DT_LEFTREAR);
 
     DT_RIGHTREAR = new Talon(3);
-    LiveWindow.addActuator("DriveTrain", "DT_RIGHTREAER", DT_RIGHTREAR);
+    // LiveWindow.addActuator("DriveTrain", "DT_RIGHTREAER", DT_RIGHTREAR);
     // Drivetrain others
     DT_GYRO = new ADXRS450_Gyro();
     DT_GYRO.reset();
     DT_GYRO.calibrate();
-    LiveWindow.addSensor("DriveTrain", "DT_GYRO", DT_GYRO);
+    // LiveWindow.addSensor("DriveTrain", "DT_GYRO", DT_GYRO);
 
     DRIVETRAIN = new MecanumDrive(DT_LEFTFRONT, DT_LEFTREAR, DT_RIGHTFRONT, DT_RIGHTREAR);
 
@@ -78,7 +77,7 @@ public class RobotMap {
     GEAR_CAM.setFPS(30);
 
     GEAR_SWITCH = new DigitalInput(0);
-    LiveWindow.addSensor("GEAR SWITCH", 0, GEAR_SWITCH);
+    // LiveWindow.addSensor("GEAR SWITCH", 0, GEAR_SWITCH);
 
     // Shooter Stuff
     SHOOT_CAM = CameraServer.getInstance().startAutomaticCapture("SHOOTER", 1);
@@ -86,15 +85,15 @@ public class RobotMap {
     SHOOT_CAM.setResolution(160, 120);
 
     SHOOT_KICKER = new Talon(1);
-    LiveWindow.addActuator("Shooter", "Kicker", SHOOT_KICKER);
+    // LiveWindow.addActuator("Shooter", "Kicker", SHOOT_KICKER);
 
     SHOOT_MOTOR = new Talon(6);
-    LiveWindow.addActuator("Shooter", "Motor", (Talon) SHOOT_MOTOR);
+    // LiveWindow.addActuator("Shooter", "Motor", (Talon) SHOOT_MOTOR);
 
     GATE = new Talon(0);
-    LiveWindow.addActuator("Shooter", "Gate", GATE);
+    // LiveWindow.addActuator("Shooter", "Gate", GATE);
 
     SWEEP_MOTOR = new Talon(5);
-    LiveWindow.addActuator("Sweeper", "Motor", (Talon) SWEEP_MOTOR);
+    // LiveWindow.addActuator("Sweeper", "Motor", (Talon) SWEEP_MOTOR);
   }
 }
