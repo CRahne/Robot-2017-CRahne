@@ -84,7 +84,7 @@ public class DriveTrain extends Subsystem {
    * 
    * @param Joystick
    */
-  public static void drive(Joystick dasStick) {
+  public void drive(Joystick dasStick) {
     // This calls on driveCartesions and used the stick methods to control the
     DT.driveCartesian(dasStick.getY(), dasStick.getX(), dasStick.getZ());
   }
@@ -99,28 +99,28 @@ public class DriveTrain extends Subsystem {
    * @param ySpeed    (for forwards-to-backwards movement)
    * @param zRotation (for rotating movements)
    */
-  public static void driveSimple(double ySpeed, double xSpeed, double zRotation) {
+  public void driveSimple(double ySpeed, double xSpeed, double zRotation) {
     // This will just take a simple inputs from the programmer in the parameters
     DT.driveCartesian(ySpeed, xSpeed, zRotation);
   }
 
   /** Shuffle to the right with the robot */
-  public static void rightShuffle() {
+  public void rightShuffle() {
     DT.driveCartesian(0, 0.5, 0); // Sets xSpeed to 0.5 volts
   }
 
   /** Shuffle to the left with the robot */
-  public static void leftShuffle() {
+  public void leftShuffle() {
     DT.driveCartesian(0, -0.5, 0);// Sets xSpeed to -0.5 volts
   }
 
   /** Drive forward */
-  public static void Forward() {
+  public void Forward() {
     DT.driveCartesian(0.5, 0, 0);// Sets the ySpeed to 0.5 volts
   }
 
   /** Drive Backwards */
-  public static void Backward() {
+  public void Backward() {
     DT.driveCartesian(-0.5, 0, 0); // Sets the ySpeed to -0.5 volts
   }
 
@@ -128,7 +128,7 @@ public class DriveTrain extends Subsystem {
    * Turns 90 degrees to the right. This method doesn't take the parameter of
    * targetAngle
    */
-  public static void turnRight() {
+  public void turnRight() {
     double angle = GYRO.getAngle();
     // Sets a while statement on the gyro
     while (angle > 90) {
@@ -141,7 +141,7 @@ public class DriveTrain extends Subsystem {
    * Turns 90 degrees to the left. This method doesn't take the parameter of
    * targetAngle
    */
-  public static void turnLeft() {
+  public void turnLeft() {
     double angle = GYRO.getAngle();
     // Sets a while statement on the gyro
     while (angle > -90) {
@@ -151,7 +151,7 @@ public class DriveTrain extends Subsystem {
   }
 
   /** Stops the Robot from moving. Call at the end of autos */
-  public static void Stop() {
+  public void Stop() {
     DT.driveCartesian(0, 0, 0); // Sets all speeds down to zero
   }
   // /\
