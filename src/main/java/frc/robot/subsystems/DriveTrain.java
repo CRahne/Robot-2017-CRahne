@@ -43,6 +43,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 /**
@@ -71,6 +72,8 @@ import frc.robot.RobotMap;
  * @param Time      How long the move will be ran for
  */
 public class DriveTrain extends Subsystem {
+  private Constants c = new Constants();// Constants Class
+
   // Components
   public static Talon LF = RobotMap.DT_LEFTFRONT;
   public static Talon LB = RobotMap.DT_LEFTREAR;
@@ -151,7 +154,7 @@ public class DriveTrain extends Subsystem {
   }
 
   /** Stops the Robot from moving. Call at the end of autos */
-  public void Stop() {
+  public static void Stop() {
     DT.driveCartesian(0, 0, 0); // Sets all speeds down to zero
   }
   // /\
@@ -214,6 +217,30 @@ public class DriveTrain extends Subsystem {
     DT.driveCartesian(0, xSpeed, 0);
     Timer.delay(Time);
     DriveTrain.Stop();
+  }
+  /**
+   * First step in acceleration program. Need to make this in order to make other methods in Robot.java
+   * !NOT READY TO WORK DON'T USE!
+   * TODO Methods in robot.java
+   * @return
+   */
+  public Boolean checkSpeeds() {
+    Boolean isGood = false;
+    final double LFCheck = LF.getSpeed();
+    final double LBCheck = LB.getSpeed();
+    final double RFCheck = RF.getSpeed();
+    final double RBCheck = RB.getSpeed();
+    double[] checks = {LFCheck,LBCheck,RFCheck,RBCheck};
+    for(double x:checks) {
+      if(x <= c.DTForwardSpeedMax && x >= c.DTForwardSpeedMin){
+        isGood = true;  
+      }else if(x <= c.DTReverseSpeedMin && x >= c.DTReverseSpeedMax) {
+        isGood = true;
+      }else {
+        isGood = false;
+      }
+    }
+    return isGood;
   }
   // /\
   // || Complex Driving Methods

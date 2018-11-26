@@ -5,6 +5,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class Constants {
 
     // DRIVETRAIN SUBSYSTEM
+    public Double DTForwardSpeedMax = 0.7;
+    public Double DTForwardSpeedMin = 0.3;
+    public Double DTReverseSpeedMax = -0.7;
+    public Double DTReverseSpeedMin = -0.3;
+    
     public Integer DTLeftRearTalonInteger = 0;
     public Integer DTRightFrontTalonInteger = 1;
     public Integer DTLeftFrontTalonInteger = 2;

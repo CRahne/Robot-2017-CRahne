@@ -81,7 +81,7 @@ public class RobotMap {
     GEAR_CAM.setResolution(160, 120);
     GEAR_CAM.setFPS(30);
 
-    GEAR_SWITCH = new DigitalInput(c.GearSwitchDigitalInput);
+    GEAR_SWITCH = new DigitalInput(0);
     LiveWindow.addSensor("GEAR SWITCH", 0, GEAR_SWITCH);
 
     // Shooter Stuff
