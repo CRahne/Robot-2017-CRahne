@@ -1,7 +1,10 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-
+/** 
+ * Will contain all constants for the motor. Will be the basis of an acceleration program that I will try to make.
+ * 
+ * TODO IN DEVOLPMENT
+*/
 public class Constants {
 
     // DRIVETRAIN SUBSYSTEM
