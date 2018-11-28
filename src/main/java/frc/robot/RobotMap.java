@@ -50,28 +50,21 @@ public class RobotMap {
     Constants c = new Constants();
     // Climb motors inits
     CLIMB_MOTOR = new Talon(c.ClimbMainMotorTalonNumber);
-    LiveWindow.addActuator("Climb", "Motor 1", CLIMB_MOTOR);
 
     CLIMB_ALT = new Talon(c.ClimbAltMotorTalonNumber);
-    LiveWindow.addActuator("Climb", "Motor 2", CLIMB_ALT);
 
     // Drivetrain motors
     DT_LEFTFRONT = new Talon(c.DTLeftFrontTalonInteger);
-    LiveWindow.addActuator("DriveTrain", "DT_LEFTFRONT", DT_LEFTFRONT);
 
     DT_RIGHTFRONT = new Talon(c.DTRightFrontTalonInteger);
-    LiveWindow.addActuator("DriveTrain", "DT_RIGHTFRONT", DT_RIGHTFRONT);
 
     DT_LEFTREAR = new Talon(c.DTLeftRearTalonInteger);
-    LiveWindow.addActuator("DriveTrain", "DT_LEFTREAR", DT_LEFTREAR);
 
     DT_RIGHTREAR = new Talon(c.DTRightRearTalonInteger);
-    LiveWindow.addActuator("DriveTrain", "DT_RIGHTREAER", DT_RIGHTREAR);
     // Drivetrain others
     DT_GYRO = new ADXRS450_Gyro();
     DT_GYRO.reset();
     DT_GYRO.calibrate();
-    LiveWindow.addSensor("DriveTrain", "DT_GYRO", DT_GYRO);
 
     DRIVETRAIN = new MecanumDrive(DT_LEFTFRONT, DT_LEFTREAR, DT_RIGHTFRONT, DT_RIGHTREAR);
 
@@ -82,7 +75,6 @@ public class RobotMap {
     GEAR_CAM.setFPS(30);
 
     GEAR_SWITCH = new DigitalInput(0);
-    LiveWindow.addSensor("GEAR SWITCH", 0, GEAR_SWITCH);
 
     // Shooter Stuff
     SHOOT_CAM = CameraServer.getInstance().startAutomaticCapture("SHOOTER", 1);
@@ -90,15 +82,11 @@ public class RobotMap {
     SHOOT_CAM.setResolution(160, 120);
 
     SHOOT_KICKER = new Talon(c.ShootKickerTalonInteger);
-    LiveWindow.addActuator("Shooter", "Kicker", SHOOT_KICKER);
 
     SHOOT_MOTOR = new Talon(c.ShootMotorTalonInteger);
-    LiveWindow.addActuator("Shooter", "Motor", (Talon) SHOOT_MOTOR);
 
     GATE = new Talon(c.GateTalonInteger);
-    LiveWindow.addActuator("Shooter", "Gate", GATE);
 
     SWEEP_MOTOR = new Talon(c.SweepMotorTalonInteger);
-    LiveWindow.addActuator("Sweeper", "Motor", (Talon) SWEEP_MOTOR);
   }
 }

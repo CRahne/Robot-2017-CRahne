@@ -24,6 +24,19 @@ package frc.robot.subsystems;
  *      -->XYGo {Will alter the ySpeed and xSpeed of a robot with the Timer.Delay and DriveTrain.Stop}
  *      -->GoStraight {This method will alter the ySpeed of going forward}
  *      -->GoSide {Shuffles to the one side or the other}
+ *
+ * ---> Acceleration Methods
+ *      -->returnLFSpeed {returns the speed of the left front DT motor}
+ *      -->returnLBSpeed {returns the speed of the left back DT motor}
+ *      -->returnRFSpeed {returns the speed of the right front DT motor}
+ *      -->returnRBSpeed {returns the speed of the right back DT motor}
+ *      -->checkSpeeds {checks all the speeds of the motors to make sure they are okay}
+ *      -->averageSpeed {will get all the speeds of each motor, then will return the average}
+ *      -->speedUp {will increase the speed each motor by 0.1 volts}
+ *      -->speedDown {will decrease the speed of each motor by 0.1 volts}
+ *      -->endCheck {will take a TargetSpeed and Average Speed of the DT and increase or decrease dynammically if isn't correct}
+ *      -->Accel {Will accelerate the robot}
+ *      -->deAccel {Will deaccelerate the robot}
  * 
  * ---> Return Methods
  *      
@@ -60,6 +73,11 @@ import frc.robot.RobotMap;
  * Comlex Methods: Parameters needed. Can set speeds to hearts content. No need
  * for Timer.delay
  * 
+ * !Not finished yet!
+ * TODO Acceleration Methods: Methods that are only made for accelerating during the
+ * TODO autonomous period. These methods all work together to make a coherent program
+ * TODO for our drivetrain
+ * 
  * Return Methdos: Returns component needed after get___
  * 
  * 
@@ -75,12 +93,12 @@ public class DriveTrain extends Subsystem {
   private Constants c = new Constants();// Constants Class
 
   // Components
-  public static Talon LF = RobotMap.DT_LEFTFRONT;
-  public static Talon LB = RobotMap.DT_LEFTREAR;
-  public static Talon RF = RobotMap.DT_RIGHTFRONT;
-  public static Talon RB = RobotMap.DT_RIGHTREAR;
-  public static ADXRS450_Gyro GYRO = RobotMap.DT_GYRO;
-  public static MecanumDrive DT = RobotMap.DRIVETRAIN;
+  public Talon LF = RobotMap.DT_LEFTFRONT;
+  public Talon LB = RobotMap.DT_LEFTREAR;
+  public Talon RF = RobotMap.DT_RIGHTFRONT;
+  public Talon RB = RobotMap.DT_RIGHTREAR;
+  public ADXRS450_Gyro GYRO = RobotMap.DT_GYRO;
+  public MecanumDrive DT = RobotMap.DRIVETRAIN;
 
   /**
    * The drive method for OPDrive
@@ -154,7 +172,7 @@ public class DriveTrain extends Subsystem {
   }
 
   /** Stops the Robot from moving. Call at the end of autos */
-  public static void Stop() {
+  public void Stop() {
     DT.driveCartesian(0, 0, 0); // Sets all speeds down to zero
   }
   // /\
@@ -175,7 +193,7 @@ public class DriveTrain extends Subsystem {
   public void driveComplex(double ySpeed, double xSpeed, double zRotation, double Time) {
     DT.driveCartesian(ySpeed, xSpeed, zRotation); // This allows complete control of all factors of the drive
     Timer.delay(Time); // Sets a time delay because there are no encoders on this robot
-    DriveTrain.Stop(); // Tells the robot to stop
+    DT.driveCartesian(0, 0, 0); // Tells the robot to stop
   }
 
   /**
@@ -190,7 +208,7 @@ public class DriveTrain extends Subsystem {
   public void XYGo(double ySpeed, double xSpeed, double Time) {
     DT.driveCartesian(ySpeed, xSpeed, 0); // There is no xRotation taken in
     Timer.delay(Time); // Sets a timer delay
-    DriveTrain.Stop(); // Tells the robot to stop
+    DT.driveCartesian(0, 0, 0); // Tells the robot to stop
   }
 
   /**
@@ -203,7 +221,7 @@ public class DriveTrain extends Subsystem {
   public void GoStraight(double ySpeed, double Time) {
     DT.driveCartesian(ySpeed, 0, 0);
     Timer.delay(Time);
-    DriveTrain.Stop();
+    DT.driveCartesian(0, 0, 0);
   }
 
   /**
@@ -216,25 +234,59 @@ public class DriveTrain extends Subsystem {
   public void GoSide(double xSpeed, double Time) {
     DT.driveCartesian(0, xSpeed, 0);
     Timer.delay(Time);
-    DriveTrain.Stop();
+    DT.driveCartesian(0, 0, 0);
+  }
+  // /\
+  // || Complex Driving Methods
+
+  // || Acceleration Methods
+  // \/ 
+  // ! NOT DONE DON'T USE
+
+  /** Gets the Left Front DriveTrain Motor Voltage (Speed) @return Voltage to Motor */
+  public double returnLFSpeed() {
+    final double LFSpeed = LF.getSpeed();
+    return LFSpeed;
+  }
+  /** Gets the Left Back DriveTrain Motor Voltage (Speed) @return Voltage to Motor */
+  public double returnLBSpeed() {
+    final double LBSpeed = LB.getSpeed();
+    return LBSpeed;
+  }
+  /** Gets the Right Front DriveTrain Motor Voltage (Speed) @return Voltage to Motor */
+  public double returnRFSpeed() {
+    final double RFSpeed = RF.getSpeed();
+    return RFSpeed;
+  }
+  /** Gets the Right Back DriveTrain Motor Voltage (Speed) @return Voltage to Motor*/
+  public double returnRBSpeed() {
+    final double RBSpeed = RB.getSpeed();
+    return RBSpeed;
   }
   /**
    * First step in acceleration program. Need to make this in order to make other methods in Robot.java
-   * !NOT READY TO WORK DON'T USE!
-   * TODO Methods in robot.java
-   * @return
+   * @return if it is good or not boolean
    */
   public Boolean checkSpeeds() {
+    // INIT RETURN BOOLEAN
     Boolean isGood = false;
-    final double LFCheck = LF.getSpeed();
-    final double LBCheck = LB.getSpeed();
-    final double RFCheck = RF.getSpeed();
-    final double RBCheck = RB.getSpeed();
+
+    // GET THE SPEEDS OF MOTORS
+    final double LBCheck = returnLBSpeed();
+    final double LFCheck = returnLFSpeed();
+    final double RFCheck = returnRFSpeed();
+    final double RBCheck = returnRBSpeed();
+
+    // MAKES THE ARRAY FOR THE FOR LOOP
     double[] checks = {LFCheck,LBCheck,RFCheck,RBCheck};
     for(double x:checks) {
-      if(x <= c.DTForwardSpeedMax && x >= c.DTForwardSpeedMin){
-        isGood = true;  
-      }else if(x <= c.DTReverseSpeedMin && x >= c.DTReverseSpeedMax) {
+      // IF SPEED IS LESS THAN OR EQUAL TO FORWARD SPEED MAX AND MORE THAN EQUAL TO FORWARD SPEED MIN
+      if(x <= c.DTForwardSpeedMax && x >= c.DTForwardSpeedMin) {
+        isGood = true;
+      }
+      // IF SPEED IS LESS THAN OR EQUAL TO THE REVERSE SPEED MIN AND MORE THAN EQUAL TO REVERSE SPEED MAX
+      // ! math is goofy trust me. check Constants.java for the values
+      else if(x <= c.DTReverseSpeedMin && x >= c.DTReverseSpeedMax) {
         isGood = true;
       }else {
         isGood = false;
@@ -242,8 +294,99 @@ public class DriveTrain extends Subsystem {
     }
     return isGood;
   }
+
+  /**
+   * Will return the average speed of all four drivetrain motors
+   * @return average speed as a double
+   */
+  public double averageSpeed() {
+    final double LBSpeed = returnLBSpeed();
+    final double LFSpeed = returnLFSpeed();
+    final double RFSpeed = returnRFSpeed();
+    final double RBSpeed = returnRBSpeed();
+
+    final double totalSpeeds = LBSpeed + LFSpeed + RFSpeed + RBSpeed;
+    final double averageSpeed = totalSpeeds / 4;
+
+    return averageSpeed;
+  }
+  /**
+   * Will speed the robot up by 0.1 volts for each motor
+   */
+  private void speedUp() {
+
+    // GET THE SPEEDS OF THE MOTORS
+    final double speedofLF = returnLFSpeed();
+    final double speedofLB = returnLBSpeed();
+    final double speedofRF = returnRFSpeed();
+    final double speedofRB = returnRBSpeed();
+
+    // SET SPEEDS OF THE MOTORS
+    RF.set(speedofRF + 0.1);
+    RB.set(speedofRB + 0.1);
+    LF.set(speedofLF + 0.1);
+    LB.set(speedofLB + 0.1);
+  }
+
+  /** Will decrease the speed of the robot by 0.1 volts on each motor */
+  private void speedDown() {
+
+    // GET SPEEDS OF MOTORS
+    final double speedofLF = returnLFSpeed();
+    final double speedofLB = returnLBSpeed();
+    final double speedofRF = returnRFSpeed();
+    final double speedofRB = returnRBSpeed();
+
+    // SET SPEEDS OF MOTOR
+    RF.set(speedofRF - 0.1);
+    RB.set(speedofRB - 0.1);
+    LF.set(speedofLF - 0.1);
+    LB.set(speedofLB - 0.1);
+  }
+
+  /** The method for end the acceleration */
+  private void endCheck(double TargetSpeed, double AverageSpeed) {
+    while(TargetSpeed != AverageSpeed) {
+      if(TargetSpeed > AverageSpeed) {
+        speedDown();
+      }
+      else if(TargetSpeed < AverageSpeed) {
+        speedUp();
+      }else {
+        DT.driveCartesian(0,0,0);
+      }
+    }
+  }
+
+  /** Accelerates the robot dynamically.
+   * 
+   * @param TargetSpeed will accerlerate to that speed
+   * @param Time affects the time in between an acceleration
+   */
+  // TODO Docs of code and then place convert into deAccel method
+  public void Accel(double TargetSpeed, Integer Time) { 
+    final double averageSpeed = averageSpeed();
+    final double difference = TargetSpeed - averageSpeed;
+    final double intervels = difference * 10;
+    final double TimeBetween = Time/(-(TargetSpeed - averageSpeed))
+    if(TargetSpeed > 1 || TargetSpeed < -1) {
+      DT.driveCartesian(0, 0, 0);
+    }else{
+      Integer x = 1;
+      while(x < intervels) {
+        x ++;
+        speedUp();
+        Timer.delay(TimeBetween);
+      }
+    }
+    endCheck(TargetSpeed, averageSpeed);
+  }
+  
+  public void deAccel(double TargetSpeed, Integer Time) {
+
+  }
   // /\
-  // || Complex Driving Methods
+  // || Acceleration Methods
 
   // || Return Methods
   // \/
