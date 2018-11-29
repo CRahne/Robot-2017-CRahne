@@ -30,13 +30,18 @@ package frc.robot.subsystems;
  *      -->returnLBSpeed {returns the speed of the left back DT motor}
  *      -->returnRFSpeed {returns the speed of the right front DT motor}
  *      -->returnRBSpeed {returns the speed of the right back DT motor}
+ * 
  *      -->checkSpeeds {checks all the speeds of the motors to make sure they are okay}
  *      -->averageSpeed {will get all the speeds of each motor, then will return the average}
+ *      
  *      -->speedUp {will increase the speed each motor by 0.1 volts}
  *      -->speedDown {will decrease the speed of each motor by 0.1 volts}
  *      -->endCheck {will take a TargetSpeed and Average Speed of the DT and increase or decrease dynammically if isn't correct}
+ *      
  *      -->Accel {Will accelerate the robot}
  *      -->deAccel {Will deaccelerate the robot}
+ *      
+ *      -->Accelerate {Will dynamically change the speed of the robot (final method, pefered use)}
  * 
  * ---> Return Methods
  *      
@@ -73,10 +78,11 @@ import frc.robot.RobotMap;
  * Comlex Methods: Parameters needed. Can set speeds to hearts content. No need
  * for Timer.delay
  * 
- * !Not finished yet!
- * TODO Acceleration Methods: Methods that are only made for accelerating during the
- * TODO autonomous period. These methods all work together to make a coherent program
- * TODO for our drivetrain
+ * !Need Testing!
+ * Acceleration Methods: Methods that are only made for accelerating during the
+ * autonomous period. These methods all work together to make a coherent program
+ * for our drivetrain. The final method, Accelerate(), will utilize all previous
+ * programs to change the robot speed to a target speed
  * 
  * Return Methdos: Returns component needed after get___
  * 
@@ -269,7 +275,7 @@ public class DriveTrain extends Subsystem {
    */
   public Boolean checkSpeeds() {
     // INIT RETURN BOOLEAN
-    Boolean isGood = false;
+    Boolean isGood = true;
 
     // GET THE SPEEDS OF MOTORS
     final double LBCheck = returnLBSpeed();
@@ -300,6 +306,7 @@ public class DriveTrain extends Subsystem {
    * @return average speed as a double
    */
   public double averageSpeed() {
+    //INIT THE VARIBLES
     final double LBSpeed = returnLBSpeed();
     final double LFSpeed = returnLFSpeed();
     final double RFSpeed = returnRFSpeed();
@@ -308,6 +315,7 @@ public class DriveTrain extends Subsystem {
     final double totalSpeeds = LBSpeed + LFSpeed + RFSpeed + RBSpeed;
     final double averageSpeed = totalSpeeds / 4;
 
+    // RETURNS A DOUBLE FOR THE AVERAGE SPEED
     return averageSpeed;
   }
   /**
@@ -346,13 +354,21 @@ public class DriveTrain extends Subsystem {
 
   /** The method for end the acceleration */
   private void endCheck(double TargetSpeed, double AverageSpeed) {
+
+    // SETS A WHILE LOOP TO CHECK THE TARGET SPEED AND AVERAGE SPEED
+    // IF IT ISN'T EQUAL IT WILL EQUAL THEN IT WILL RUN THE CODE
     while(TargetSpeed != AverageSpeed) {
+
+      // WILL TELL MOTORS TO SLOW DOWN
       if(TargetSpeed > AverageSpeed) {
         speedDown();
       }
+      // WILL TELL THE MOTORS TO SPEED UP
       else if(TargetSpeed < AverageSpeed) {
         speedUp();
-      }else {
+      }
+      // IF WE REACH THIS SOMETHING HAS GONE TERRIBLY WRONG
+      else {
         DT.driveCartesian(0,0,0);
       }
     }
@@ -363,28 +379,91 @@ public class DriveTrain extends Subsystem {
    * @param TargetSpeed will accerlerate to that speed
    * @param Time affects the time in between an acceleration
    */
-  // TODO Docs of code and then place convert into deAccel method
-  public void Accel(double TargetSpeed, Integer Time) { 
+  private void Accel(double TargetSpeed, double Time) {
+    // INIT THE VARIBLES 
     final double averageSpeed = averageSpeed();
     final double difference = TargetSpeed - averageSpeed;
     final double intervels = difference * 10;
-    final double TimeBetween = Time/(-(TargetSpeed - averageSpeed))
+    final double TimeBetween = Time/(-(TargetSpeed - averageSpeed));
+
+    // CHECKS TO MAKE SURE THE TARGET SPEED IS A-OK
     if(TargetSpeed > 1 || TargetSpeed < -1) {
       DT.driveCartesian(0, 0, 0);
     }else{
       Integer x = 1;
+
+      // WHILE LOOP FOR INCREASING THE VOLTAGE TO THE ROBOT
       while(x < intervels) {
         x ++;
         speedUp();
         Timer.delay(TimeBetween);
       }
     }
+    // DOUBLE CHECKS THE SPEED IS EQUAL TO THE TARGET SPEED
     endCheck(TargetSpeed, averageSpeed);
   }
   
-  public void deAccel(double TargetSpeed, Integer Time) {
+  private void deAccel(double TargetSpeed, double Time) {
+    // INIT THE VARIBLES 
+    final double averageSpeed = averageSpeed();
+    final double difference = TargetSpeed - averageSpeed;
+    final double intervels = difference * 10;
+    final double TimeBetween = Time/(-(TargetSpeed - averageSpeed));
 
+    // CHECKS TO MAKE SURE THE TARGET SPEED IS A-OK
+    if(TargetSpeed > 1 || TargetSpeed < -1) {
+      DT.driveCartesian(0, 0, 0);
+    }else{
+      Integer x = 1;
+
+      // WHILE LOOP FOR DECREASING THE VOLTAGE TO THE ROBOT
+      while(x < intervels) {
+        x ++;
+        speedDown();
+        Timer.delay(TimeBetween);
+      }
+    }
+    // DOUBLE CHECKS THE SPEED IS EQUAL TO THE TARGET SPEED
+    endCheck(TargetSpeed, averageSpeed);
   }
+
+  /**
+   * This Acceleration Program will tell the robot to either Accelerate or deAccelerate according to the relation
+   * of the TargetSpeed to the Average Speed. The Program will then change the speed toward the speed. This program uses
+   * the programs above to check and change the speed.
+   * 
+   * @param TargetSpeed
+   * @param Time
+   */
+  public void Accelerate(double TargetSpeed, double Time) {
+    // SEES IF CURRENT SPEED IS LEGAL
+    if(checkSpeeds()) {
+      // INITIALIZES THE AVERAGE SPEED
+      double avgSpeed = averageSpeed();
+
+      // IF THE AVG SPEED GREATER THAN THE TARGET SPEED
+      // THEN DEACCELERATE THE ROBOT
+      if(avgSpeed > TargetSpeed) {
+        deAccel(TargetSpeed, Time);
+      }
+
+      // IF THE AVG SPEED IS LESS THAN THE TARGET SPEED
+      // THEN ACCELERATE THE ROBOT
+      else if(avgSpeed < TargetSpeed) {
+        Accel(TargetSpeed, Time);
+      }
+
+      // IF NO REQUIREMENTS ARE MADE (ANOTHER CHECK)
+      else{
+        DT.driveCartesian(0, 0, 0);
+      }
+    }
+    else {
+      DT.driveCartesian(0, 0, 0);
+    }
+  }
+
+
   // /\
   // || Acceleration Methods
 
