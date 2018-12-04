@@ -16,6 +16,7 @@ import frc.robot.commands.ClimbUp;
 import frc.robot.commands.Red1;
 import frc.robot.commands.Red2;
 import frc.robot.commands.Red3;
+import frc.robot.Constants;
 
 /** Where buttons and joysticks are created */
 public class OI {
