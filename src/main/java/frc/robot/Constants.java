@@ -6,6 +6,13 @@ package frc.robot;
  * TODO IN DEVOLPMENT
 */
 public class Constants {
+    // OI
+    public Integer ClimbUpJoystickNumber = 1;
+    public Integer ClimbDownJoystickNumber = 2;
+    public Integer SweeperForwardJoystickNumber = 3;
+    public Integer SweeperReverseJoystickNumber = 4;
+    public Integer ShootGoJoystickNumber = 5;
+
     // DRIVETRAIN SUBSYSTEM
     public Double DTForwardSpeedMax = 0.7;
     public Double DTForwardSpeedMin = 0.3;
