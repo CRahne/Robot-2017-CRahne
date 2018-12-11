@@ -6,7 +6,6 @@ package frc.robot;
  * TODO IN DEVOLPMENT
 */
 public class Constants {
-
     // DRIVETRAIN SUBSYSTEM
     public Double DTForwardSpeedMax = 0.7;
     public Double DTForwardSpeedMin = 0.3;
