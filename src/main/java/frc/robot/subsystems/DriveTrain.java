@@ -68,24 +68,32 @@ import frc.robot.RobotMap;
  * The drivetrain subsystem is the subsystem with all the methods related to
  * driving the frame
  * 
+ * <p>
  * There are simiple and complex driving methods, as well as all of the other
  * return methods
+ * </p>
  * 
- * 
+ * <p>
  * Simple Methods: No parameters needed. Only sets speeds. Need to add
  * Timer.delay
+ * </p>
  * 
+ * <p>
  * Comlex Methods: Parameters needed. Can set speeds to hearts content. No need
  * for Timer.delay
+ * </p>
  * 
+ * <p>
  * !Need Testing!
  * Acceleration Methods: Methods that are only made for accelerating during the
  * autonomous period. These methods all work together to make a coherent program
  * for our drivetrain. The final method, Accelerate(), will utilize all previous
  * programs to change the robot speed to a target speed
+ * </p>
  * 
+ * <p>
  * Return Methdos: Returns component needed after get___
- * 
+ * </p>
  * 
  * @param ySpeed    The robot's speed along the Y-Axis [-1.0, 1.0]. Right is
  *                  positive
@@ -463,7 +471,32 @@ public class DriveTrain extends Subsystem {
     }
   }
 
+  public void TeleOpDirectionAcceleration(Joystick Stick) {
+    final double xStick = Stick.getX();
+    final double yStick = Stick.getY();
+    final double zStick = Stick.getZ();
 
+    final double avgSpeed = averageSpeed();
+
+    final double changedX = xStick/c.changeDivosrForTeleOpAcceleration;
+    final double changedY = yStick/c.changeDivosrForTeleOpAcceleration;
+    final double changedZ = zStick/c.changeDivosrForTeleOpAcceleration;
+    
+    final double changedX2 = (xStick/c.changeDivosrForTeleOpAcceleration) * 2;
+    final double changedY2 = (yStick/c.changeDivosrForTeleOpAcceleration) * 2;
+    final double changedZ2 = (zStick/c.changeDivosrForTeleOpAcceleration) * 2;
+
+    final double changedX3 = (xStick/c.changeDivosrForTeleOpAcceleration) * 3;
+    final double changedY3 = (yStick/c.changeDivosrForTeleOpAcceleration) * 3;
+    final double changedZ3 = (zStick/c.changeDivosrForTeleOpAcceleration) * 3;
+
+
+    if(avgSpeed != xStick || avgSpeed != yStick || avgSpeed != zStick) {
+      DT.driveCartesian(changedY, changedX, changedZ);
+      Timer.delay(c.changeTimeForTeleOpAcceleration);
+      DT.driveCartesian();
+    }
+  }
   // /\
   // || Acceleration Methods
 

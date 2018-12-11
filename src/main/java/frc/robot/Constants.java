@@ -18,6 +18,9 @@ public class Constants {
     public Integer DTLeftFrontTalonInteger = 2;
     public Integer DTRightRearTalonInteger = 3;
 
+    public double changeTimeForTeleOpAcceleration = 10;
+    public double changeDivosrForTeleOpAcceleration =
+
     // CLIMB MOTORS
     public Integer ClimbMainMotorTalonNumber = 4;
     public Integer ClimbAltMotorTalonNumber = 7;
