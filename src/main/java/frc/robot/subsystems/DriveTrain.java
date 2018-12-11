@@ -42,6 +42,7 @@ package frc.robot.subsystems;
  *      -->deAccel {Will deaccelerate the robot}
  *      
  *      -->Accelerate {Will dynamically change the speed of the robot (final method, pefered use)}
+ *      -->TeleOpDirectionAcceleration {Will use input from joystick and move the robot that way} 
  * 
  * ---> Return Methods
  *      
@@ -470,8 +471,15 @@ public class DriveTrain extends Subsystem {
       DT.driveCartesian(0, 0, 0);
     }
   }
-
+  /**
+   * Math doesn't work, won't work, pls don't delete or comment on how bad it is
+   * 
+   * !<p><b>I repeat, this doesn't work don't even try</p></b>
+   * @param Stick
+   */
   public void TeleOpDirectionAcceleration(Joystick Stick) {
+    int xyz = 0;
+
     final double xStick = Stick.getX();
     final double yStick = Stick.getY();
     final double zStick = Stick.getZ();
@@ -490,12 +498,17 @@ public class DriveTrain extends Subsystem {
     final double changedY3 = (yStick/c.changeDivosrForTeleOpAcceleration) * 3;
     final double changedZ3 = (zStick/c.changeDivosrForTeleOpAcceleration) * 3;
 
-
+    while(xyz == 0) {
     if(avgSpeed != xStick || avgSpeed != yStick || avgSpeed != zStick) {
       DT.driveCartesian(changedY, changedX, changedZ);
       Timer.delay(c.changeTimeForTeleOpAcceleration);
-      DT.driveCartesian();
+      DT.driveCartesian(changedX2, changedY2, changedZ2);
+      Timer.delay(c.changeTimeForTeleOpAcceleration);
+      DT.driveCartesian(changedX3, changedY3, changedZ3);
+    }else {
+      xyz = 1;
     }
+  }
   }
   // /\
   // || Acceleration Methods

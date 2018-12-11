@@ -18,8 +18,9 @@ public class Constants {
     public Integer DTLeftFrontTalonInteger = 2;
     public Integer DTRightRearTalonInteger = 3;
 
+    // SEE THE TELEOP ACCELERATION PROGRAM IN DRIVETRAIN.JAVA -> ACCELERATION METHODS
     public double changeTimeForTeleOpAcceleration = 10;
-    public double changeDivosrForTeleOpAcceleration =
+    public double changeDivosrForTeleOpAcceleration = 3;
 
     // CLIMB MOTORS
     public Integer ClimbMainMotorTalonNumber = 4;
