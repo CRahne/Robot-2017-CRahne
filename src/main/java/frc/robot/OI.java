@@ -16,9 +16,11 @@ import frc.robot.commands.ClimbUp;
 import frc.robot.commands.Red1;
 import frc.robot.commands.Red2;
 import frc.robot.commands.Red3;
+import frc.robot.Constants;
 
 /** Where buttons and joysticks are created */
 public class OI {
+  private Constants c = Robot.c;
 
   public Joystick OpStick = new Joystick(0);// Main controller joystick
 
@@ -45,6 +47,20 @@ public class OI {
 
   /** Made only for autos */
   public OI() {
+    ClimbUp = new JoystickButton(OpStick, c.ClimbUpJoystickNumber);
+    ClimbUp.whileHeld(new ClimbUp());
+
+    ClimbDown = new JoystickButton(OpStick, c.ClimbDownJoystickNumber);
+    ClimbDown.whileHeld(new ClimbDown());
+
+    SweeperForward = new JoystickButton(OpStick, c.SweeperForwardJoystickNumber);
+    SweeperForward.whileHeld(new ClimbUp());
+
+    SweeperReverse = new JoystickButton(OpStick, c.SweeperReverseJoystickNumber);
+    SweeperReverse.whileHeld(new ClimbDown());
+
+    ShootGo = new JoystickButton(OpStick, c.ShootGoJoystickNumber);
+    ShootGo.whileHeld(new ClimbDown());
 
     chooser.addDefault("Default Auto", defaultAuto);
     chooser.addObject("1X", X1);
@@ -59,21 +75,6 @@ public class OI {
   }
 
   public Command getAutonomous(String autoChoice) {
-
-    ClimbUp = new JoystickButton(OpStick, 1);
-    ClimbUp.whileHeld(new ClimbUp());
-
-    ClimbDown = new JoystickButton(OpStick, 2);
-    ClimbDown.whileHeld(new ClimbDown());
-
-    SweeperForward = new JoystickButton(OpStick, 3);
-    SweeperForward.whileHeld(new ClimbUp());
-
-    SweeperReverse = new JoystickButton(OpStick, 4);
-    SweeperReverse.whileHeld(new ClimbDown());
-
-    ShootGo = new JoystickButton(OpStick, 5);
-    ShootGo.whileHeld(new ClimbDown());
 
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     SmartDashboard.putString("Game Data", gameData);

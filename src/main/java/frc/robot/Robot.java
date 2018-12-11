@@ -11,6 +11,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Sweeper;
 import frc.robot.commands.OPDrive;
 import frc.robot.RobotMap;
+import frc.robot.Constants;
 
 /**
  * Robot Class is the class that tells the robot what to run and when
@@ -23,6 +24,7 @@ public class Robot extends TimedRobot {
   public static Sweeper sweep = new Sweeper();
   public static Shooter shoot = new Shooter();
   public static Climb climb = new Climb();
+  public static Constants c = new Constants();
 
   // AutoCommand
   public Command autonomousCommand;
